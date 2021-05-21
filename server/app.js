@@ -3,10 +3,10 @@ const bodyParser = require("body-parser");
 const path = require("path");
 
 const app = express();
-const adminRoutes = require("./server/routes/admin");
-const shopRoutes = require("./server/routes/shop");
+const adminRoutes = require("./routes/admin");
 const errorController = require("./controllers/error");
-const mongoConnect = require("./server/util/database").mongoConnect;
+const shopRoutes = require("./routes/shop");
+const mongoConnect = require("./util/database").mongoConnect;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(express.)

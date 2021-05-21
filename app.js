@@ -6,6 +6,7 @@ const app = express();
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const errorController = require("./controllers/error");
+const mongoConnect = require("./util/database");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(express.)
@@ -15,4 +16,7 @@ app.use(shopRoutes);
 
 app.use(errorController.get404Page);
 
-app.listen(3000);
+mongoConnect((client) => {
+  console.log(client);
+  app.listen(3000);
+});

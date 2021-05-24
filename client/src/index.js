@@ -4,9 +4,7 @@ import './index.css';
 import App from './containers/App';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <App  appTitle="product manager" />,
   document.getElementById('root')
 );
 

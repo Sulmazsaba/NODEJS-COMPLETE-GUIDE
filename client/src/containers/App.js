@@ -37,7 +37,9 @@ class App extends Component {
   render() {
     let products = this.state.products;
     if (this.state.products.length > 0) {
-      products = <Products products={products}></Products>;
+      products = <Products products={products}
+      deleted={this.deleteProductHandler}
+      ></Products>;
     }
     return (
       <div>

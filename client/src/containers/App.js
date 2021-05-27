@@ -1,5 +1,6 @@
 import Layout from "../components/Layout/Layout";
 import { Component } from "react";
+import OrderCreator from "./OrderCreator/OrderCreator";
 
 class App extends Component {
   // constructor(props) {
@@ -52,7 +53,7 @@ class App extends Component {
     return (
       <div>
         <Layout>
-          <p>hello from layout</p>
+          <OrderCreator></OrderCreator>
         </Layout>
       </div>
     );

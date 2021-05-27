@@ -105,10 +105,12 @@ module.exports = function (webpackEnv) {
         // css is located in `static/css`, use '../../' to locate index.html folder
         // in production `paths.publicUrlOrPath` can be a relative path
         options: paths.publicUrlOrPath.startsWith(".")
-          ? { publicPath: "../../",
-          importLoaders: true,
-          modules: true,
-          localIdentName: "[name]__[local]__[hash:base64:5]", }
+          ? {
+              publicPath: "../../",
+              importLoaders: true,
+              modules: true,
+              localIdentName: "[name]__[local]__[hash:base64:5]",
+            }
           : {},
       },
       {
@@ -476,9 +478,10 @@ module.exports = function (webpackEnv) {
               exclude: cssModuleRegex,
               use: getStyleLoaders({
                 importLoaders: 1,
-                sourceMap: isEnvProduction
-                  ? shouldUseSourceMap
-                  : isEnvDevelopment,
+                sourceMap: isEnvProduction && shouldUseSourceMap,
+                modules: {
+                  localIdentName: "[name]__[local]__[hash:base64:5]"
+                },
               }),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.

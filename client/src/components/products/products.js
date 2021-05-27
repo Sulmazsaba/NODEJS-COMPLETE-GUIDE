@@ -1,6 +1,7 @@
 import React from "react";
 import Product from "./Product/Product";
 import Aux from "../../hoc/Auxiliary";
+import classes from "./Products.css";
 
 const products = (props) => {
   const products = props.products.map((product, index) => {
@@ -14,8 +15,10 @@ const products = (props) => {
   });
   return (
     <Aux>
-      <h2>Products</h2>
-      {products}
+      <div className={classes.Products}>
+        <h2>Products</h2>
+        {products}
+      </div>
     </Aux>
   );
 };

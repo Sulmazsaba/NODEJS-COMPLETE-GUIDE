@@ -17,6 +17,5 @@ app.use(shopRoutes);
 app.use(errorController.get404Page);
 
 mongoConnect((client) => {
-  console.log(client);
   app.listen(3000);
 });

@@ -1,26 +1,33 @@
-import React from "react";
+import React, { Component } from "react";
 import Product from "./Product/Product";
 import Aux from "../../hoc/Auxiliary";
 import classes from "./Products.css";
+import axios from "Axios";
 
-const products = (props) => {
-  const products = props.products.map((product, index) => {
+class Products extends Component {
+  componentDidMount() {
+    axios.get()
+    const products = props.products.map((product, index) => {
+      return (
+        <Product
+          title={product.title}
+          imgUrl={product.imgUrl}
+          key={product.id}
+          added={() => props.addedtoShoppingCard(product.id)}
+        ></Product>
+      );
+    });
+  }
+  render() {
     return (
-      <Product
-        title={product.title}
-        imgUrl={product.imgUrl}
-        key={product.id}
-      ></Product>
+      <Aux>
+        <div className={classes.Products}>
+          <h2>Products</h2>
+          {products}
+        </div>
+      </Aux>
     );
-  });
-  return (
-    <Aux>
-      <div className={classes.Products}>
-        <h2>Products</h2>
-        {products}
-      </div>
-    </Aux>
-  );
-};
+  }
+}
 
-export default products;
+export default Products;

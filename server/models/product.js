@@ -19,6 +19,7 @@ class Product {
     } else {
       dbOp = db.collection("products").insertOne(this);
     }
+    
     return dbOp
       .then((res) => {
         console.log("operation was successfully!");

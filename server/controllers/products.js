@@ -9,7 +9,9 @@ exports.postAddProduct = (req, res, next) => {
     req.body.title,
     req.body.price,
     req.body.description,
-    req.body.imgUrl
+    req.body.imgUrl,
+    null,
+    req.user._id
   );
   product.save();
   product.res.redirect("/");

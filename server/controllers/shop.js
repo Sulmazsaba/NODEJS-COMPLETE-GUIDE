@@ -62,3 +62,14 @@ exports.postOrder = (req, res, next) => {
       console.log(err);
     });
 };
+exports.getOrders = (req, res, next) => {
+  return req.user
+    .getOrders()
+    .then((res) => {
+      console.log(res);
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

@@ -1,7 +1,10 @@
 const Product = require("../models/product");
+const Order = require("../models/order");
 
 exports.getProducts = (req, res, nex) => {
-  Product.fetchAll()
+  Product.find()
+    // .select("title price -_id")
+    // .populate("userId", "name")
     .then((products) => {
       console.log(products);
     })
@@ -34,7 +37,8 @@ exports.postCart = (req, res, next) => {
 
 exports.getCart = (req, res, next) => {
   return req.user
-    .getCart()
+    .populate("cart.items.productId")
+    .execPopulate()
     .then((products) => {
       console.log(products);
       return products;
@@ -45,7 +49,7 @@ exports.getCart = (req, res, next) => {
 exports.postCartDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   return req.user
-    .deleteItemFromCart(prodId)
+    .removeFromCart(prodId)
     .then((res) => {
       console.log("deleted!");
     })
@@ -55,12 +59,11 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 exports.postOrder = (req, res, next) => {
-  return req.user
-    .addOrder()
-    .then()
-    .catch((err) => {
-      console.log(err);
-    });
+  const order = new Order({
+    products: req.user.cart.items.populate("productId"),
+    userId: req.user,
+  });
+  order.save();
 };
 exports.getOrders = (req, res, next) => {
   return req.user

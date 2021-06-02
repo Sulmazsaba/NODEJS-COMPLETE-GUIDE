@@ -5,23 +5,25 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-  const product = new Product(
-    req.body.title,
-    req.body.price,
-    req.body.description,
-    req.body.imgUrl,
-    null,
-    req.user._id
-  );
+  const product = new Product({
+    title: req.body.title,
+    price: req.body.price,
+    description: req.body.description,
+    imgUrl: req.body.imgUrl,
+    userId: req.user._id,
+  });
   product.save();
   product.res.redirect("/");
 };
 
 exports.getProducts = (req, res, next) => {
-  const products = Product.getAll();
-  res.render("shop", {
-    products: products,
-  });
+  Product.find()
+    .then((products) => {
+      console.log(products);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.postEditProduct = (req, res, next) => {
@@ -31,16 +33,14 @@ exports.postEditProduct = (req, res, next) => {
   const updatedPrice = req.body.price;
   const updatedDescription = req.body.description;
 
-  const product = new Product(
-    updatedTitle,
-    updatedPrice,
-    updatedDescription,
-    updatedImgUrl,
-    productId
-  );
-
-  return product
-    .save()
+  Product.findById(productId)
+    .then((product) => {
+      product.title = updatedTitle;
+      product.price = updatedPrice;
+      product.imgUrl = updatedImgUrl;
+      product.description = updatedDescription;
+      return product.save();
+    })
     .then((res) => {
       console.log("updated Product");
     })
@@ -51,7 +51,7 @@ exports.postEditProduct = (req, res, next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  Product.deleteById(prodId)
+  Product.findeByIdAndRemove(prodId)
     .then((res) => {
       console.log("Deleted");
     })
